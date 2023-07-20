@@ -3,7 +3,15 @@ import { User } from "../interfaces/user.interface";
 
 const UserSchema = new Schema<User>(
     {
-        name: {
+        username: {
+            type: String,
+            required: true
+        },
+        firstname: {
+            type: String,
+            required: true
+        },
+        lastname: {
             type: String,
             required: true
         },
@@ -15,9 +23,6 @@ const UserSchema = new Schema<User>(
             type: String,
             required: true,
         },
-        description: {
-            type: String,
-        }
     },
     {
         timestamps: true,
