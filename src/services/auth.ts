@@ -10,7 +10,11 @@ export const register = async (user: User) => {
   const userFound = await UserModel.findOne({ email });
   if (userFound) return "User already exists";
 
-  await sendEmail({ type: "register", name: firstname + " " + lastname,  email});
+  await sendEmail({
+    type: "register",
+    name: firstname + " " + lastname,
+    email,
+  });
   const passHash = await encrypt(password);
   const newUser = UserModel.create({ ...user, password: passHash });
   return newUser;
@@ -31,4 +35,49 @@ export const login = async ({ email, password }: Auth) => {
   };
 
   return data;
+};
+
+// export const forgotPassword = async (user: User) => {
+//   const { email, password } = user;
+//   const userFound = await UserModel.findOne({ email });
+
+//   if (!userFound) return "User not Exists!!";
+
+//   await sendEmail({ type: "forgotten", email });
+
+//   const passHash = await encrypt(password);
+//   const newUser = UserModel.findOneAndUpdate(
+//     { email },
+//     { password: passHash },
+//     { new: true }
+//   );
+//   return newUser;
+// };
+
+export const sendPassChangeEmail = async (user: User) => {
+  const { email } = user;
+  const userFound = await UserModel.findOne({ email });
+
+  if (!userFound) return "User not Exists!!";
+
+  return await sendEmail({ type: "forgotten", email });
+};
+
+export const forgotPassword = async (user: User) => {
+  const { email, password } = user;
+
+  const userFound = await UserModel.findOne({ email });
+
+  if (!userFound) return "Email does not exist!";
+
+  const passHash = await encrypt(password);
+  const newUser = UserModel.findOneAndUpdate(
+    { email },
+    { password: passHash },
+    { new: true }
+  );
+
+  sendEmail({ type: "change", email });
+
+  return newUser;
 };
