@@ -3,7 +3,7 @@ import "dotenv/config";
 import { emailTemplate } from "../utils/email/template";
 import { EmailUser } from "../interfaces/email.interface";
 
-export async function sendEmail({ type, name, email }: EmailUser) {
+export async function sendEmail({ type, name, email, key }: EmailUser) {
   const transporter = nodemailer.createTransport({
     host: process.env.SERVICE_HOST,
     port: +process.env.SERVICE_PORT!,
@@ -14,7 +14,7 @@ export async function sendEmail({ type, name, email }: EmailUser) {
     },
   });
 
-  const { html, subject } = emailTemplate({ type, name, email });
+  const { html, subject } = emailTemplate({ type, name, email, key });
 
   const mailOptions = {
     from: process.env.EMAIL_FROM,
