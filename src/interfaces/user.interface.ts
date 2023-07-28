@@ -1,7 +1,8 @@
 import { Auth } from "./auth.interface";
 
 export interface User extends Auth {
-  username: string
+  username: string;
   firstname: string;
   lastname: string;
+  validationKey: string;
 }

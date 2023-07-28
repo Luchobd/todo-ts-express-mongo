@@ -1,6 +1,6 @@
 import { EmailUser } from "../../interfaces/email.interface";
 
-export const emailTemplate = ({ type, name }: EmailUser) => {
+export const emailTemplate = ({ type, name, key }: EmailUser) => {
   switch (type) {
     case "register":
       return {
@@ -74,7 +74,7 @@ export const emailTemplate = ({ type, name }: EmailUser) => {
                     height="300px"
                     style="border-radius: 10px;"
                     src="https://res.cloudinary.com/dqut4ajgf/image/upload/v1690231090/Email-Register_nt9jjf.png"
-                    alt=""
+                    alt="register-password-email"
                   />
                 </figure>
                 <div style="margin-top: 20px;">
@@ -144,30 +144,21 @@ export const emailTemplate = ({ type, name }: EmailUser) => {
                 text-align: center;
               }
 
-              .buttonContent {
-                margin-top: 20px;
-                text-align: center;
+              .temporaryKeyContent {
+              margin-top: 20px;
+              text-align: center;
               }
 
-              a .buttonLink {
-                width: 50%;
-                padding: 15px 10px;
-                background-color: #A448FF;
+              .temporaryKey {
+                margin-top: 10px;
+                display: inline-block;
+                text-align: center;
+                border: 1px solid #a448ff;
                 border-radius: 8px;
-                border: none;
-                outline: none;
-                cursor: pointer;
-                text-decoration: none;
-                font-family: "Roboto", sans-serif;
-                font-size: 20px;
+                padding: 20px;
+                font-size: 40px;
                 font-weight: bold;
-                text-align: center;
-                color: #FFFF00;
-                text-transform: uppercase;
-              }
-
-              a .buttonLink:active {
-                transform: scale(0.9);
+                color: #fff;
               }
 
             </style>
@@ -184,14 +175,11 @@ export const emailTemplate = ({ type, name }: EmailUser) => {
                 </div>
                 <figure style="width: 100%; text-align: center;">
                   <img width="300px" height="300px" style="border-radius: 10px;"
-                    src="https://res.cloudinary.com/dqut4ajgf/image/upload/v1690331144/Email-forgot_uoishx.png" alt="" />
+                    src="https://res.cloudinary.com/dqut4ajgf/image/upload/v1690488157/Email-forgot_bijpya.png" alt="forgot-password-email" />
                 </figure>
-                <div class="buttonContent">
-                  <a href="https://todo-frontend-react-ts.vercel.app/" target="_blank">
-                    <button class="buttonLink">
-                      password change link!! 👍
-                    </button>
-                  </a>
+                <div class="temporaryKeyContent">
+                  <h3 class="subtitle" style="text-decoration: underline;">verification key</h3>
+                  <span class="temporaryKey">${key}</span>
                 </div>
               </div>
             </main>
@@ -299,7 +287,7 @@ export const emailTemplate = ({ type, name }: EmailUser) => {
                 </div>
                 <figure style="width: 100%; text-align: center;">
                   <img width="300px" height="300px" style="border-radius: 10px;"
-                    src="https://res.cloudinary.com/dqut4ajgf/image/upload/v1690471659/Email-successful_d4g4tc.png" alt="" />
+                    src="https://res.cloudinary.com/dqut4ajgf/image/upload/v1690471659/Email-successful_d4g4tc.png" alt="change-password-email" />
                 </figure>
                 <div style="margin-top: 20px;">
                   <p class="text__acount">The password change has been successful.</p>
