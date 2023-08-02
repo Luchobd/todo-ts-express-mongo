@@ -12,11 +12,17 @@ export const getTaskItem = async (id: string) => {
 };
 
 export const insertItem = async (item: Tasks) => {
+  if (item.image === "") {
+    item.image = "https://cdn-icons-png.flaticon.com/512/906/906334.png";
+  }
   const responseInset = await ItemModel.create(item);
   return responseInset;
 };
 
 export const updateTaskItem = async (id: string, data: Tasks) => {
+  if (data.image === "") {
+    data.image = "https://cdn-icons-png.flaticon.com/512/906/906334.png";
+  }
   const responseItem = await ItemModel.findOneAndUpdate({ _id: id }, data, {
     new: true,
   });
@@ -24,6 +30,11 @@ export const updateTaskItem = async (id: string, data: Tasks) => {
 };
 
 export const deleteTaskItem = async (id: string) => {
-  const responseItem = await ItemModel.findOneAndDelete({ _id: id });
+  const responseItem = await ItemModel.findOneAndDelete(
+    { _id: id },
+    {
+      new: true,
+    }
+  );
   return responseItem;
 };
